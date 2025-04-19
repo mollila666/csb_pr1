@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<title>Front page</title>
+<h1><span style="color:black">Welcome!</span></h1>
+
+
+{% if session.user_id %}
+
+<div class="navigointipalkki">
+<ul>
+	<li> <a href="/register">Add user </a>   </li>
+	<li> <a href="/logout">Log out </a>   </li>
+</ul>
+</div>
+
+<b><span style="color:black">You are logged in as: {{ session.user_name }}.</span></b>
+<p>
+<b><span style="color:black">Your messages:</span></b>
+<ul>
+{% for message in messages %}
+Message: {{ message[0] | safe}}<br> 
+{# Message: {{ message[0] }}<br> #}
+<br>
+{% endfor %}
+</ul>
+<br>
+
+
+<b><span style="color:black">Send a message to the user!</span></b>
+<br>
+
+<form action="/send_message_to_user" method="POST" onsubmit="return check(this)">
+<b><span style="color:black"><p>New message:</span></b>
+<textarea name="new_message" rows="1" cols="40"></textarea>
+
+
+<br>
+<br>
+<br>
+<br>
+<input type="submit" value="Send message">
+{# <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> #}
+</form>
+
+
+<a href="/logout">Log out</a>
+{% else %}
+<b><span style="color:black">Please sign in.</span></b>
+<form action="/login" method="POST">
+<p>Username:<br>
+<input type="text" name="username"></p>
+<p>Password:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Log-In">
+</form>
+<p>
+{% endif %}
+{% endblock %}
+
+

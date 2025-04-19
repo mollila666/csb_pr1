@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Error</title>
+<b><span style="color:black">Error: {{ message }}</span></b>
+
+{% if message == "Uudella ketjulla pitää olla nimi!" %}
+<p>
+<a href="/area/{{ areaid }}">Palaa takaisin</a>
+{% elif message == "Sinulla ei ole oikeutta tälle sivulle!" %}
+<p>
+<a href="/">Palaa takaisin</a>
+{% elif message == "Ei oikeutta nähdä sivua" %}
+<p>
+<a href="/">Palaa takaisin</a>
+{% else %}
+<p>
+<form action="/register" method="post">
+<a href="/">Go back</a>
+{% endif %}
+
+{% endblock %}
